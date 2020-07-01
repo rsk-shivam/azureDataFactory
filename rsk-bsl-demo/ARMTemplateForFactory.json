@@ -50,7 +50,9 @@
 								}
 							},
 							"sink": {
-								"type": "AzureSqlSink"
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table employee",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
