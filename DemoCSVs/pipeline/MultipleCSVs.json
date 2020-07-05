@@ -163,6 +163,39 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "AddDataToLogs",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "CopyCSVToTable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[AddDataToLogs]",
+								"storedProcedureParameters": {
+									"tableName": {
+										"value": "empyolee",
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "outputSQL",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
