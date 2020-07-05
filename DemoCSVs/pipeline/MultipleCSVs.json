@@ -75,7 +75,7 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"preCopyScript": "delete from employee",
+									"preCopyScript": "IF NOT EXISTS (SELECT * FROM DataLogs where TableName='employee')\nBEGIN\nDELETE from employee\nEND",
 									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
