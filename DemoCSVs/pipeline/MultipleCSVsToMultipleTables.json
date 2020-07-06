@@ -103,7 +103,13 @@
 							"outputs": [
 								{
 									"referenceName": "MySqlServer",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"tableName": {
+											"value": "substring(@item().name,0,indexOf(@item().name, '.')-1)",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						},
