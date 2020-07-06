@@ -102,7 +102,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "EmployeeTable",
+									"referenceName": "MySqlServer",
 									"type": "DatasetReference"
 								}
 							]
