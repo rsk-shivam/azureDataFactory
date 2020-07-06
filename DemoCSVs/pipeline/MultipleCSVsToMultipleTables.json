@@ -106,7 +106,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tableName": {
-											"value": "substring(@item().name,0,indexOf(@item().name, '.')-1)",
+											"value": "replace(@item().name,'.csv','')",
 											"type": "Expression"
 										}
 									}
