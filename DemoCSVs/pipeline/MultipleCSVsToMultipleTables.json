@@ -76,68 +76,12 @@
 								"sink": {
 									"type": "AzureSqlSink",
 									"preCopyScript": "IF NOT EXISTS (SELECT * FROM DataLogs where TableName='employee')\nBEGIN\nDELETE from employee\nEND",
+									"tableOption": "autoCreate",
 									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"type": "String",
-												"ordinal": 1
-											},
-											"sink": {
-												"name": "Name",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"type": "String",
-												"ordinal": 2
-											},
-											"sink": {
-												"name": "Age",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"type": "String",
-												"ordinal": 3
-											},
-											"sink": {
-												"name": "Address",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"type": "String",
-												"ordinal": 4
-											},
-											"sink": {
-												"name": "Company",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"type": "String",
-												"ordinal": 5
-											},
-											"sink": {
-												"name": "Sex",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										}
-									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
