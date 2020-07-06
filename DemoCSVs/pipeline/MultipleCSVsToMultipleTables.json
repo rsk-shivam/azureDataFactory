@@ -76,7 +76,7 @@
 								"sink": {
 									"type": "AzureSqlSink",
 									"preCopyScript": {
-										"value": "@{concat(\n 'IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ''dbo'' AND  TABLE_NAME =''',\n substring(item().name, 0, lastIndexOf(item().name,'.')),''') BEGIN ',\n concat( 'truncate table ',substring(item().name, 0, lastIndexOf(item().name,'.'))),\n 'END') }",
+										"value": "@{concat(\n 'IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ''dbo'' AND  TABLE_NAME =''',\n substring(item().name, 0, lastIndexOf(item().name,'.')),''') BEGIN ''',\n concat( 'truncate table ',substring(item().name, 0, lastIndexOf(item().name,'.'))),\n ''' END') }",
 										"type": "Expression"
 									},
 									"tableOption": "autoCreate",
