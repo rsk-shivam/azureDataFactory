@@ -1,0 +1,33 @@
+{
+	"name": "MySqlServer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "outputSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Age",
+				"type": "varchar"
+			},
+			{
+				"name": "Address",
+				"type": "varchar"
+			},
+			{
+				"name": "Company",
+				"type": "varchar"
+			},
+			{
+				"name": "Sex",
+				"type": "varchar"
+			}
+		]
+	}
+}
