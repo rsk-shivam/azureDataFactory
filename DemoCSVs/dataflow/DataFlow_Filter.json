@@ -12,13 +12,21 @@
 					"name": "SourseForFilter"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputFolder",
+						"type": "DatasetReference"
+					},
+					"name": "OutputByFilterDataFlow"
+				}
+			],
 			"transformations": [
 				{
 					"name": "FilterByDepartmentID"
 				}
 			],
-			"script": "source(output(\n\t\tName as string,\n\t\tDesignation as string,\n\t\tAge as string,\n\t\tDepartmentID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SourseForFilter\nSourseForFilter filter(equals(DepartmentID,'3')) ~> FilterByDepartmentID"
+			"script": "source(output(\n\t\tName as string,\n\t\tDesignation as string,\n\t\tAge as string,\n\t\tDepartmentID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SourseForFilter\nSourseForFilter filter(equals(DepartmentID,'3')) ~> FilterByDepartmentID\nFilterByDepartmentID sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['outputByFilterDataFlow'],\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> OutputByFilterDataFlow"
 		}
 	}
 }
