@@ -19,13 +19,21 @@
 					"name": "departmentSourse"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputFolder",
+						"type": "DatasetReference"
+					},
+					"name": "joinedOutputByDataFlow"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Join"
 				}
 			],
-			"script": "source(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> employeeSource\nsource(output(\n\t\tID as string,\n\t\tName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> departmentSourse\nemployeeSource, departmentSourse join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join"
+			"script": "source(output(\n\t\tName as string,\n\t\tDesignation as string,\n\t\tAge as string,\n\t\tDepartmentID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> employeeSource\nsource(output(\n\t\tID as string,\n\t\tName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> departmentSourse\nemployeeSource, departmentSourse join(DepartmentID == ID,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join\nJoin sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['emp_dep_joined'],\n\tmapColumn(\n\t\tEmployeeName = employeeSource@Name,\n\t\tDesignation,\n\t\tAge,\n\t\tDepartmentID,\n\t\tDepartmentName = departmentSourse@Name\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> joinedOutputByDataFlow"
 		}
 	}
 }
