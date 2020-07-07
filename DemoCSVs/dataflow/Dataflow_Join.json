@@ -1,0 +1,31 @@
+{
+	"name": "Dataflow_Join",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "empCSV",
+						"type": "DatasetReference"
+					},
+					"name": "employeeSource"
+				},
+				{
+					"dataset": {
+						"referenceName": "departmentCSV",
+						"type": "DatasetReference"
+					},
+					"name": "departmentSourse"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Join"
+				}
+			],
+			"script": "source(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> employeeSource\nsource(output(\n\t\tID as string,\n\t\tName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> departmentSourse\nemployeeSource, departmentSourse join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join"
+		}
+	}
+}
