@@ -1,0 +1,24 @@
+{
+	"name": "DataFlow_Filter",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "empCSV",
+						"type": "DatasetReference"
+					},
+					"name": "SourseForFilter"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "FilterByDepartmentID"
+				}
+			],
+			"script": "source(output(\n\t\tName as string,\n\t\tDesignation as string,\n\t\tAge as string,\n\t\tDepartmentID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SourseForFilter\nSourseForFilter filter(equals(DepartmentID,'3')) ~> FilterByDepartmentID"
+		}
+	}
+}
